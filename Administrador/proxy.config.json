@@ -1,0 +1,11 @@
+{
+  "/api/*": {
+    "target": "http://localhost:7153",
+    "secure": false
+  },
+  "/api-rewrite/*": {
+    "target": "https://medium.com",
+    "secure": false,
+    "pathRewrite": { "^/api-rewrite": "" }
+  }
+}
