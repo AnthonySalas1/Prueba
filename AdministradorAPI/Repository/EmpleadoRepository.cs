@@ -37,10 +37,10 @@ namespace AdministradorAPI.Repository
                     {
                         var empleado = new ONDEmpleado
                         {
-                            Id = (int)reader["EMP_Id"],
-                            Nombres = (string)reader["EMP_nombres"],
-                            Apellidos = (string)reader["EMP_Apellidos"],
-                            Cargo = (string)reader["EMP_Cargo"],
+                            Id = reader["EMP_Id"] == DBNull.Value ? 0 : (int)reader["EMP_Id"],
+                            Nombres = reader["EMP_nombres"] == DBNull.Value ? null : (string)reader["EMP_nombres"],
+                            Apellidos = reader["EMP_Apellidos"] == DBNull.Value ? null : (string)reader["EMP_Apellidos"],
+                            Cargo = reader["EMP_Cargo"] == DBNull.Value ? null : (string)reader["EMP_Cargo"],
                             FechaIngreso = reader["EMP_FechaIngreso"] == DBNull.Value ? null : (DateTime)reader["EMP_FechaIngreso"],
                             Salario = reader["EMP_Salario"] == DBNull.Value ? 0.00m : (decimal)reader["EMP_Salario"],
                         };

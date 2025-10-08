@@ -7,7 +7,7 @@
   "type": "chrome",
   "request": "launch",
   "url": "http://localhost:60406",
-  "webRoot": "C:\\Users\\Usuario\\source\\repos\\Administrador"
+  "webRoot": "C:\\Users\\Usuario\\source\\repos\\AnthonySalas1\\Prueba\\Administrador"
 }</LaunchJsonTarget>
   </PropertyGroup>
 </Project>

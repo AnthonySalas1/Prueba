@@ -4,6 +4,7 @@ import { provideRouter, Routes } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [];
 @NgModule({
@@ -12,7 +13,8 @@ const routes: Routes = [];
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [provideRouter(routes),
     provideHttpClient()]

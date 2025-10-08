@@ -2,7 +2,9 @@
 using AdministradorAPI.Utilidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace AdministradorAPI.Controllers
 {
@@ -12,27 +14,27 @@ namespace AdministradorAPI.Controllers
     {
         private readonly IEmpleadoService _empleadoService;
         private readonly ILogger<EmpleadoController> _logger;
-    
+
         private bool rpta = false;
 
         public EmpleadoController(ILogger<EmpleadoController> logger, IEmpleadoService empleadoService)
         {
             _logger = logger;
             _empleadoService = empleadoService;
-   
+
         }
 
         [HttpGet]
-        public async Task<Tuple<List<ONDEmpleado>,bool>> ObtenerTodos()
+        public async Task<Tuple<List<ONDEmpleado>, bool>> ObtenerTodos()
         {
             try
             {
-                var rptaService =  await _empleadoService.ObtenerTodos();
+                var rptaService = await _empleadoService.ObtenerTodos();
                 if (rptaService != null)
                 {
                     rpta = true;
                 }
-                return  new Tuple<List<ONDEmpleado>,bool>(rptaService, rpta);
+                return new Tuple<List<ONDEmpleado>, bool>(rptaService, rpta);
             }
             catch (Exception ex)
             {
@@ -63,10 +65,17 @@ namespace AdministradorAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<Tuple<bool, bool>> Insertar([FromBody] ONDEmpleado empleado)
+        public async Task<Tuple<bool, bool>> Insertar([FromBody] dynamic dato)
         {
             try
             {
+                ONDEmpleado empleado = new ONDEmpleado();
+                empleado.Nombres = dato["json"].Nombres??null;
+                empleado.Apellidos = dato["json"].Apellidos??null;
+                empleado.FechaIngreso = dato["json"].FechaIngreso ?? null;
+                empleado.Cargo = dato["json"].Cargo ?? null;
+                empleado.Salario = dato["json"].Salario ?? null;
+
                 var rptaService = await _empleadoService.Insertar(empleado);
                 if (rptaService != null)
                 {
@@ -101,7 +110,7 @@ namespace AdministradorAPI.Controllers
             }
 
         }
-
+        [Route("{id}")]
         [HttpDelete]
         public async Task<Tuple<bool, bool>> Eliminar(int Id)
         {

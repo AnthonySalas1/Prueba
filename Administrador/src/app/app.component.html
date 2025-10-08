@@ -1,31 +1,101 @@
 <div class="container">
-  <div class="table table-striped">
-    <div class="col">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Nombres</th>
-            <th scope="col">Apellidos</th>
-            <th scope="col">Cargo</th>
-            <th scope="col">Salario</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let empleado of empleados">
-            <td class="text-center">{{empleado.id}}</td>
-            <td>{{empleado.nombres}}</td>
-            <td class="text-center">{{empleado.apellidos}}</td>
-            <td class="text-center">
-              <a class="btn btn-secondary" routerLink="/empleado/{{empleado.id}}" title="View"><i class="fa fa-eye"></i></a>
-              <a class="btn btn-primary" routerLink="/empleado/edit/{{empleado.id}}" title="Edit"><i class="fa fa-pencil"></i></a>
-              <a class="btn btn-danger" routerLink="/empleado/delete/{{empleado.id}}" title="Delete"><i class="fa fa-times"></i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <a class="btn btn-primary" routerLink="/empleado/create">Create</a>
-    </div>
+
+  <div>
+    <table class="table table-dark table-hover">
+
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Cargo</th>
+          <th scope="col">Salario</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let empleado of empleados">
+          <td class="text-center">
+            {{empleado.id}}
+          </td>
+          <td>{{empleado.nombres}}</td>
+          <td class="text-center">{{empleado.apellidos}}</td>
+          <td class="text-center">{{empleado.cargo}}</td>
+          <td class="text-center">{{empleado.salario}}</td>
+          <td class="text-l">
+
+            <a class="btn btn-primary" (click)=editar(empleado.id) title="Edit">Editar<i class="fa fa-pencil"></i></a>
+            <button class="btn btn-danger" (click)=eliminar(empleado.id) title="Delete">Eliminar<i class="fa fa-times"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a class="btn btn-primary" (click)=nuevo()>Nuevo</a>
   </div>
-</div>`
+  <form  *ngIf="mostrarForm" [formGroup]="empleadoForm" (ngSubmit)="guardar()">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-4">
+          <label for="Id">Id</label>
+          <input formControlName="Id"
+                 class="form-control"
+                 required
+                 type="text"
+                 readonly>
+        </div>
+
+        <div class="col-4">
+          <div class="form-group">
+            <label for="Nombres">Nombres:</label>
+            <input formControlName="Nombres"
+                   class="form-control"
+                   required
+                   type="text">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="Apellidos">Apellidos:</label>
+            <input formControlName="Apellidos"
+                   class="form-control"
+                   required
+                   type="text">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="Cargo">Cargo:</label>
+            <input formControlName="Cargo"
+                   class="form-control"
+                   required
+                   type="text">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="FechaIngreso">Fecha Ingreso:</label>
+            <input formControlName="FechaIngreso"
+                   class="form-control"
+                   required
+                   type="text">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="Salario">Salario:</label>
+            <input formControlName="Salario"
+                   class="form-control"
+                   required
+                   type="text">
+          </div>
+        </div>
+      </div>
+      <div style="margin: 1%">
+        <button class="btn btn-success" type="submit">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
 
